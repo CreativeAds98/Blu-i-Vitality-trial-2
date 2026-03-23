@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLU I-VITALITY LONGUE — Science-Driven Wellness</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ink: #0a1628;
+    --sky: #1a5fc8;
+    --cyan: #29b6e8;
+    --mist: #e8f2fb;
+    --cloud: #f4f8fd;
+    --white: #ffffff;
+    --gold: #c8a96e;
+    --text: #2c3e55;
+    --subtle: #7a8fa8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(26,95,200,0.08);
+    transition: padding .3s;
+  }
+  .nav-logo { display: flex; align-items: center; gap: .8rem; text-decoration: none; }
+  .nav-logo img { height: 48px; width: 48px; object-fit: contain; }
+  .nav-logo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--ink); letter-spacing: .06em; line-height: 1.2; }
+  .nav-logo-sub { font-size: .7rem; font-weight: 300; color: var(--sky); letter-spacing: .18em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 2.4rem; list-style: none; }
+  .nav-links a { font-size: .82rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text); text-decoration: none; transition: color .2s; }
+  .nav-links a:hover { color: var(--sky); }
+  .nav-cta {
+    background: var(--sky); color: #fff; border: none; padding: .65rem 1.6rem;
+    font-family: 'Outfit', sans-serif; font-size: .8rem; font-weight: 500; letter-spacing: .1em;
+    text-transform: uppercase; cursor: pointer; transition: background .2s, transform .2s;
+    border-radius: 2px;
+  }
+  .nav-cta:hover { background: var(--ink); transform: translateY(-1px); }
+
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    width: 40px; height: 40px; cursor: pointer; background: none; border: none; padding: 4px;
+    z-index: 300; position: fixed; top: 1rem; right: 1.5rem;
+  }
+  .hamburger span {
+    display: block; height: 2px; width: 100%; background: var(--ink);
+    border-radius: 2px; transition: transform .35s ease, opacity .25s ease, width .3s ease, background .2s;
+    transform-origin: center;
+  }
+  .hamburger.open span { background: #fff; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE MENU DRAWER ── */
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 150;
+    background: rgba(10,22,40,0.97);
+    backdrop-filter: blur(12px);
+    flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem;
+    opacity: 0; pointer-events: none;
+    transition: opacity .35s ease;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: all; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem; font-weight: 300; color: #fff; text-decoration: none;
+    letter-spacing: .06em; transition: color .2s;
+  }
+  .mobile-menu a:hover { color: var(--cyan); }
+  .mobile-menu .mobile-cta {
+    margin-top: 1rem; background: var(--sky); color: #fff;
+    border: none; padding: 1rem 2.8rem;
+    font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; cursor: pointer; border-radius: 2px;
+  }
+
+  /* ── WHATSAPP FLOAT ── */
+  .whatsapp-btn {
+    position: fixed; bottom: 5.5rem; right: 1.6rem; z-index: 120;
+    width: 54px; height: 54px; border-radius: 50%;
+    background: #25D366;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+    text-decoration: none;
+    transition: transform .25s, box-shadow .25s;
+    animation: waBounce 2.5s ease-in-out infinite;
+  }
+  .whatsapp-btn:hover { transform: scale(1.12); box-shadow: 0 10px 32px rgba(37,211,102,0.6); animation: none; }
+  .whatsapp-btn svg { width: 28px; height: 28px; fill: #fff; }
+  @keyframes waBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+  /* ── SCROLL TO TOP ── */
+  .scroll-top {
+    position: fixed; bottom: 1.5rem; right: 1.6rem; z-index: 120;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--sky); border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 18px rgba(26,95,200,0.35);
+    transition: background .2s, transform .2s, opacity .3s;
+    opacity: 0; pointer-events: none;
+  }
+  .scroll-top.visible { opacity: 1; pointer-events: all; }
+  .scroll-top:hover { background: var(--ink); transform: translateY(-3px); }
+  .scroll-top svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--cloud);
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(41,182,232,0.10) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 10% 80%, rgba(26,95,200,0.07) 0%, transparent 60%);
+  }
+  .hero-text { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: .6rem;
+    font-size: .72rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--sky); margin-bottom: 1.8rem;
+  }
+  .hero-eyebrow::before { content: ''; width: 32px; height: 1px; background: var(--cyan); }
+  .hero-h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.2rem);
+    font-weight: 300; line-height: 1.08;
+    color: var(--ink); margin-bottom: 1.6rem;
+    letter-spacing: -.01em;
+  }
+  .hero-h1 em { font-style: italic; color: var(--sky); }
+  .hero-desc {
+    font-size: 1rem; font-weight: 300; line-height: 1.8;
+    color: var(--subtle); max-width: 420px; margin-bottom: 2.8rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--sky); color: #fff; border: none;
+    padding: .9rem 2.2rem; font-family: 'Outfit', sans-serif;
+    font-size: .85rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    cursor: pointer; border-radius: 2px; transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: var(--ink); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--sky); border: 1.5px solid var(--sky);
+    padding: .9rem 2.2rem; font-family: 'Outfit', sans-serif;
+    font-size: .85rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+    cursor: pointer; border-radius: 2px; transition: all .2s;
+  }
+  .btn-outline:hover { background: var(--sky); color: #fff; }
+
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-logo-wrap {
+    position: relative;
+    width: 420px; height: 420px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-logo-wrap::before {
+    content: '';
+    position: absolute; inset: 0; border-radius: 50%;
+    background: radial-gradient(circle, rgba(41,182,232,0.15) 0%, rgba(26,95,200,0.05) 60%, transparent 80%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+  .hero-logo-wrap::after {
+    content: '';
+    position: absolute; inset: 30px; border-radius: 50%;
+    border: 1px solid rgba(41,182,232,0.2);
+    animation: rotate 20s linear infinite;
+  }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:.8} 50%{transform:scale(1.06);opacity:1} }
+  @keyframes rotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+  .hero-logo-img {
+    width: 300px; height: 300px; object-fit: contain;
+    position: relative; z-index: 1;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(0 20px 60px rgba(26,95,200,0.25));
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-14px)} }
+
+  .hero-stats {
+    display: flex; gap: 2.4rem; margin-top: 3rem; padding-top: 3rem;
+    border-top: 1px solid rgba(26,95,200,0.1);
+  }
+  .stat-item { display: flex; flex-direction: column; gap: .2rem; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; color: var(--sky); }
+  .stat-label { font-size: .72rem; font-weight: 400; letter-spacing: .12em; text-transform: uppercase; color: var(--subtle); }
+
+  /* ── MARQUEE ── */
+  .marquee-strip {
+    background: var(--ink); padding: .9rem 0; overflow: hidden;
+    display: flex; white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-flex; gap: 3rem;
+    animation: marquee 22s linear infinite;
+  }
+  .marquee-inner span {
+    font-size: .75rem; font-weight: 400; letter-spacing: .2em;
+    text-transform: uppercase; color: rgba(255,255,255,0.55);
+    flex-shrink: 0;
+  }
+  .marquee-inner span.dot { color: var(--cyan); }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: .7rem; font-weight: 500; letter-spacing: .25em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: .8rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3.5vw, 3.4rem);
+    font-weight: 300; line-height: 1.15; color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+  .section-title em { font-style: italic; color: var(--sky); }
+  .section-desc {
+    font-size: .95rem; font-weight: 300; line-height: 1.85;
+    color: var(--subtle); max-width: 540px;
+  }
+
+  /* ── APPROACH ── */
+  .approach {
+    background: var(--white);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .approach-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .approach-card {
+    background: var(--cloud); border: 1px solid rgba(26,95,200,0.08);
+    padding: 1.8rem; border-radius: 4px;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+    position: relative; overflow: hidden;
+  }
+  .approach-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--sky), var(--cyan));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s;
+  }
+  .approach-card:hover { border-color: rgba(26,95,200,0.2); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(26,95,200,0.1); }
+  .approach-card:hover::before { transform: scaleX(1); }
+  .approach-card-icon { font-size: 1.6rem; margin-bottom: .8rem; }
+  .approach-card h3 { font-size: .85rem; font-weight: 600; color: var(--ink); margin-bottom: .5rem; letter-spacing: .04em; }
+  .approach-card p { font-size: .8rem; font-weight: 300; line-height: 1.7; color: var(--subtle); }
+
+  /* ── CONDITIONS ── */
+  .conditions {
+    background: var(--ink);
+    position: relative; overflow: hidden;
+  }
+  .conditions::before {
+    content: '';
+    position: absolute; top: -40%; right: -20%; width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(41,182,232,0.08) 0%, transparent 70%);
+  }
+  .conditions .section-title { color: var(--white); }
+  .conditions .section-label { color: var(--cyan); }
+  .conditions .section-desc { color: rgba(255,255,255,0.45); }
+  .conditions-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+  .conditions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.06); }
+  .condition-cat {
+    background: rgba(255,255,255,0.02); padding: 2rem;
+    transition: background .2s;
+  }
+  .condition-cat:hover { background: rgba(41,182,232,0.08); }
+  .condition-cat h3 {
+    font-size: .72rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+    color: var(--cyan); margin-bottom: 1.2rem; padding-bottom: .8rem;
+    border-bottom: 1px solid rgba(41,182,232,0.2);
+  }
+  .condition-list { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+  .condition-list li {
+    font-size: .82rem; font-weight: 300; color: rgba(255,255,255,0.65);
+    padding-left: .9rem; position: relative;
+  }
+  .condition-list li::before { content: '—'; position: absolute; left: 0; color: rgba(41,182,232,0.5); font-size: .7rem; }
+
+  /* ── PROMISE ── */
+  .promise {
+    background: linear-gradient(135deg, var(--sky) 0%, #0f3d8c 100%);
+    text-align: center; padding: 7rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .promise::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .promise-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 300; font-style: italic;
+    color: #fff; line-height: 1.3; max-width: 800px;
+    margin: 0 auto 2rem; position: relative; z-index: 1;
+  }
+  .promise-sub { font-size: .8rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,0.55); position: relative; z-index: 1; }
+
+  /* ── PROCESS ── */
+  .process { background: var(--cloud); }
+  .process-header { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; margin-bottom: 4rem; }
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+  .process-steps::before {
+    content: ''; position: absolute; top: 28px; left: 10%; right: 10%; height: 1px;
+    background: linear-gradient(90deg, var(--sky), var(--cyan), var(--sky));
+    opacity: .25;
+  }
+  .process-step { padding: 2rem 1.5rem; text-align: center; position: relative; }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--white); border: 1.5px solid rgba(26,95,200,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600;
+    color: var(--sky); margin: 0 auto 1.2rem;
+    position: relative; z-index: 1;
+    transition: background .2s, border-color .2s;
+  }
+  .process-step:hover .step-num { background: var(--sky); color: #fff; border-color: var(--sky); }
+  .process-step h3 { font-size: .85rem; font-weight: 600; color: var(--ink); margin-bottom: .5rem; letter-spacing: .04em; }
+  .process-step p { font-size: .78rem; font-weight: 300; line-height: 1.65; color: var(--subtle); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.5);
+    padding: 4rem;
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem;
+  }
+  .footer-brand { display: flex; flex-direction: column; gap: 1rem; }
+  .footer-brand img { height: 52px; width: 52px; object-fit: contain; }
+  .footer-brand-name {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600;
+    color: #fff; letter-spacing: .06em;
+  }
+  .footer-brand p { font-size: .8rem; font-weight: 300; line-height: 1.7; max-width: 260px; }
+  .footer-col h4 { font-size: .7rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+  .footer-col a { font-size: .8rem; font-weight: 300; color: rgba(255,255,255,0.45); text-decoration: none; transition: color .2s; }
+  .footer-col a:hover { color: var(--cyan); }
+  .footer-bottom {
+    background: rgba(0,0,0,0.3); padding: 1.4rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-bottom p { font-size: .72rem; font-weight: 300; color: rgba(255,255,255,0.3); letter-spacing: .06em; }
+
+  /* ── ANIMATIONS ON SCROLL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+  .reveal-delay-4 { transition-delay: .4s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: flex; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; text-align: center; }
+    .hero-visual { display: none; }
+    .hero-desc { max-width: 100%; margin: 0 auto 2rem; }
+    .hero-actions { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    section { padding: 4rem 1.5rem; }
+    .approach, .conditions-header, .process-header { grid-template-columns: 1fr; gap: 2rem; }
+    .approach-cards { grid-template-columns: 1fr; }
+    .conditions-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
+    .footer-bottom { padding: 1rem 1.5rem; flex-direction: column; gap: .5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="/mnt/user-data/uploads/blu_i_vitality-logo-new.jpeg" alt="Blu I Vitality Logo">
+    <div>
+      <div class="nav-logo-text">BLU I-VITALITY</div>
+      <div class="nav-logo-sub">Longue</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#approach">Our Approach</a></li>
+    <li><a href="#conditions">Conditions</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta">Book Consultation</button>
+</nav>
+
+<!-- HAMBURGER (fixed, always on top) -->
+<button class="hamburger" id="hamburger" aria-label="Toggle menu">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#approach" class="mob-link">Approach</a>
+  <a href="#conditions" class="mob-link">Conditions</a>
+  <a href="#process" class="mob-link">Process</a>
+  <a href="#contact" class="mob-link">Contact</a>
+  <button class="mobile-cta">Book Consultation</button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Science-Driven Wellness</div>
+    <h1 class="hero-h1">
+      Restore Your<br>
+      <em>Vitality.</em><br>
+      Elevate Your Life.
+    </h1>
+    <p class="hero-desc">
+      Advanced clinical wellness that bridges traditional wisdom with modern scientific research — addressing root causes, not just symptoms.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary">Begin Your Journey</button>
+      <button class="btn-outline">Explore Treatments</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">Root</span>
+        <span class="stat-label">Cause Analysis</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">3-in-1</span>
+        <span class="stat-label">Integrated Model</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">100%</span>
+        <span class="stat-label">Evidence-Based</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-logo-wrap">
+      <img src="/mnt/user-data/uploads/blu_i_vitality-logo-new.jpeg" alt="Blu I Vitality" class="hero-logo-img">
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Immune Conditioning</span><span class="dot">✦</span>
+    <span>Naturopathy</span><span class="dot">✦</span>
+    <span>Allopathy</span><span class="dot">✦</span>
+    <span>Root Cause Analysis</span><span class="dot">✦</span>
+    <span>Physical Detox</span><span class="dot">✦</span>
+    <span>Mental Detox</span><span class="dot">✦</span>
+    <span>Nutritional Nourishment</span><span class="dot">✦</span>
+    <span>Energy Centre Optimisation</span><span class="dot">✦</span>
+    <span>Immune Conditioning</span><span class="dot">✦</span>
+    <span>Naturopathy</span><span class="dot">✦</span>
+    <span>Allopathy</span><span class="dot">✦</span>
+    <span>Root Cause Analysis</span><span class="dot">✦</span>
+    <span>Physical Detox</span><span class="dot">✦</span>
+    <span>Mental Detox</span><span class="dot">✦</span>
+    <span>Nutritional Nourishment</span><span class="dot">✦</span>
+    <span>Energy Centre Optimisation</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- APPROACH -->
+<section class="approach" id="approach">
+  <div>
+    <p class="section-label reveal">Clinical Philosophy</p>
+    <h2 class="section-title reveal reveal-delay-1">Where Science Meets<br><em>Healing Wisdom</em></h2>
+    <p class="section-desc reveal reveal-delay-2">
+      We bridge the gap between traditional wisdom and modern scientific research to provide a comprehensive healthcare model. Our protocols are strictly evidence-based and data-driven, ensuring transparency and safety for every patient.
+    </p>
+  </div>
+  <div class="approach-cards">
+    <div class="approach-card reveal reveal-delay-1">
+      <div class="approach-card-icon">⚡</div>
+      <h3>Energy Centre Optimisation</h3>
+      <p>Each energy centre connects to a specific organ. We restore overall balance and function at the source.</p>
+    </div>
+    <div class="approach-card reveal reveal-delay-2">
+      <div class="approach-card-icon">🔬</div>
+      <h3>Scientific & Research Model</h3>
+      <p>Strictly evidence-based, data-driven protocols with complete transparency and patient safety.</p>
+    </div>
+    <div class="approach-card reveal reveal-delay-3">
+      <div class="approach-card-icon">🌿</div>
+      <h3>Integrated Medicine</h3>
+      <p>Combining Immune Conditioning, Allopathy, and Naturopathy under one unified goal.</p>
+    </div>
+    <div class="approach-card reveal reveal-delay-4">
+      <div class="approach-card-icon">🧠</div>
+      <h3>Dual Detoxification</h3>
+      <p>Physical & Mental Detoxification paired with precision Nutritional Nourishment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONDITIONS -->
+<section class="conditions" id="conditions">
+  <div class="conditions-header">
+    <div>
+      <p class="section-label">Specialised Care</p>
+      <h2 class="section-title">Conditions We<br><em>Treat & Transform</em></h2>
+    </div>
+    <p class="section-desc">
+      Permanent relief and root-cause solutions for a wide spectrum of conditions. We identify the underlying cause so your recovery lasts.
+    </p>
+  </div>
+  <div class="conditions-grid">
+    <div class="condition-cat">
+      <h3>General Wellness</h3>
+      <ul class="condition-list">
+        <li>Anaemia</li>
+        <li>Low Weight</li>
+        <li>Sound Sleep / Insomnia</li>
+        <li>Healthy Digestion</li>
+      </ul>
+    </div>
+    <div class="condition-cat">
+      <h3>Pain & Lifestyle</h3>
+      <ul class="condition-list">
+        <li>Chronic Body Pain</li>
+        <li>Irritable Bowel Syndrome</li>
+        <li>Acid Reflux</li>
+        <li>Obesity & Weight Management</li>
+        <li>Headaches</li>
+      </ul>
+    </div>
+    <div class="condition-cat">
+      <h3>Detox & Recovery</h3>
+      <ul class="condition-list">
+        <li>Alcohol Detox</li>
+        <li>Liver Care</li>
+      </ul>
+    </div>
+    <div class="condition-cat">
+      <h3>Women's Health</h3>
+      <ul class="condition-list">
+        <li>Period Cramps</li>
+        <li>Menopause Management</li>
+      </ul>
+    </div>
+    <div class="condition-cat">
+      <h3>Men's Health</h3>
+      <ul class="condition-list">
+        <li>Male Infertility</li>
+      </ul>
+    </div>
+    <div class="condition-cat">
+      <h3>Mental & Aesthetics</h3>
+      <ul class="condition-list">
+        <li>Stress & Anxiety</li>
+        <li>Healthy Skin</li>
+        <li>Hair Loss Solutions</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE -->
+<section class="promise">
+  <p class="promise-quote">"If we can fix it,<br>we can help you perform better."</p>
+  <p class="promise-sub">— Our Promise to Every Patient</p>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="process-header">
+    <div>
+      <p class="section-label reveal">How It Works</p>
+      <h2 class="section-title reveal reveal-delay-1">Your Path to<br><em>Permanent Wellness</em></h2>
+    </div>
+    <p class="section-desc reveal reveal-delay-2">
+      Our structured process ensures we understand your body, identify the root cause, and deliver lasting results — not temporary relief.
+    </p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-num">01</div>
+      <h3>Comprehensive Assessment</h3>
+      <p>Deep diagnostic evaluation of your physical and mental health history, dietary habits, and lifestyle factors.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-num">02</div>
+      <h3>Root Cause Identification</h3>
+      <p>Scientific analysis to pinpoint the foundational imbalances driving your condition — not just surface symptoms.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-num">03</div>
+      <h3>Personalised Protocol</h3>
+      <p>A custom integrated plan combining the right modalities — nutrition, detox, immune conditioning, and more.</p>
+    </div>
+    <div class="process-step reveal reveal-delay-4">
+      <div class="step-num">04</div>
+      <h3>Monitor & Sustain</h3>
+      <p>Continuous tracking with adjustments to ensure your results are permanent and your vitality is maintained.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-brand">
+    <img src="/mnt/user-data/uploads/blu_i_vitality-logo-new.jpeg" alt="Blu I Vitality">
+    <div class="footer-brand-name">BLU I-VITALITY LONGUE</div>
+    <p>Empowering individuals with the vitality they need to lead a high-performance life through advanced clinical wellness.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Treatments</h4>
+    <ul>
+      <li><a href="#">General Wellness</a></li>
+      <li><a href="#">Pain & Lifestyle</a></li>
+      <li><a href="#">Detox & Recovery</a></li>
+      <li><a href="#">Women's Health</a></li>
+      <li><a href="#">Mental Health</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Company</h4>
+    <ul>
+      <li><a href="#">Our Approach</a></li>
+      <li><a href="#">Clinical Team</a></li>
+      <li><a href="#">Research</a></li>
+      <li><a href="#">Patient Stories</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <ul>
+      <li><a href="#">Book a Consultation</a></li>
+      <li><a href="#">Find Us</a></li>
+      <li><a href="#">Patient Portal</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <p>© 2025 BLU I-VITALITY LONGUE. All rights reserved.</p>
+  <p>Science-Driven Wellness · Research-Oriented Results</p>
+</div>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/91XXXXXXXXXX?text=Hello%2C%20I%20would%20like%20to%20enquire%20about%20your%20wellness%20services." 
+   class="whatsapp-btn" target="_blank" rel="noopener" aria-label="WhatsApp Enquiry">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- SCROLL TO TOP -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  // Close menu on link click
+  document.querySelectorAll('.mob-link, .mobile-cta').forEach(el => {
+    el.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Scroll to top
+  const scrollBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('visible', window.scrollY > 400);
+  });
+  scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+</body>
+</html>
